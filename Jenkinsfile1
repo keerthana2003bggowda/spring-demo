@@ -1,0 +1,33 @@
+pipeline {
+    agent { label 'agent2' }
+
+    stages {
+
+        stage('Checkout') {
+            steps {
+                git branch: 'main',
+                    credentialsId: 'github-pat',
+                    url: 'https://github.com/keerthana2003bggowda/spring-demo.git'
+            }
+        }
+        stage('Build'){
+            steps{
+                sh "mvn clean package"
+            }
+        }
+
+        stage('sonarqubereport'){
+            steps{
+                sh "mvn sonar:sonar"
+            }
+        }
+    }
+    post {
+        success {
+            echo 'Pipeline succeeded!'
+        }
+        failure {
+            echo 'Pipeline failed!'
+        }
+    }
+}    
