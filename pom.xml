@@ -27,11 +27,11 @@
 		<url/>
 	</scm>
 	<properties>
-		<java.version>21</java.version>
-		<sonar.organization>Keerthana B G</sonar.organization>
-    	<sonar.projectKey>keerthana2003bggowda</sonar.projectKey>
+		
+    	<java.version>21</java.version>
+    	<sonar.organization>keerthana2003bggowda</sonar.organization>
+    	<sonar.projectKey>keerthana2003bggowda_spring-demo</sonar.projectKey>
     	<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-
 	</properties>
 	<dependencies>
 		<dependency>
