@@ -18,7 +18,9 @@ pipeline {
 
         stage('sonarqubereport'){
             steps{
-                sh "mvn sonar:sonar"
+                withSonarQubeEnv('sonarcloud') {
+                    sh 'mvn sonar:sonar'
+                }
             }
         }
     }
