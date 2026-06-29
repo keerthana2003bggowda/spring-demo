@@ -28,7 +28,7 @@ pipeline {
                 sh """
                     curl -u admin:Keerthana@23 \
                          -T target/*.jar \
-                         "http://52.66.86.106:8082/artifactory/libs-release-local/spring-demo-${BUILD_NUMBER}.jar"
+                         "http://13.201.51.61:8082//artifactory/libs-release-local/spring-demo-${BUILD_NUMBER}.jar"
                 """
             }
         }
