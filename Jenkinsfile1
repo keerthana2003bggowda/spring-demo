@@ -16,10 +16,10 @@ pipeline {
             }
         }
 
-        stage('sonarqubereport'){
-            steps{
-                withSonarQubeEnv('sonarcloud') {
-                    sh 'mvn sonar:sonar'
+        stage('SonarQube Analysis') {
+            steps {
+                withSonarQubeEnv('sonarqube') {
+                    sh "${tool('sonar-scanner')}/bin/sonar-scanner"
                 }
             }
         }
