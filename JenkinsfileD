@@ -40,11 +40,7 @@ pipeline {
                 sh 'docker run -d --name "$CONTAINER" -p 9090:9090 "$IMAGE:$TAG"'
             }
         }
-        stage('Test') {
-            steps {
-                sh 'sleep 2; echo "Hit http://localhost:9090 to see the app."'
-            }
-        }
+       
         stage('Cleanup') {
             steps {
                 cleanWs()
