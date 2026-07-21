@@ -27,10 +27,8 @@ pipeline {
 
         stage('K8s Deployment') {
             steps {
-                 
-                    sh 'kubectl apply -f k8s-deploy.yaml'
-                
-             }
+                sh 'kubectl --kubeconfig=/home/keerthana/.kube/config apply -f k8s-deploy.yaml --validate=false'
+            }
         }
     }
 }
