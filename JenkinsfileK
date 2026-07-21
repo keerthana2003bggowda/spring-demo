@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+    
+
+    stages {
+        stage('Clone Repo') {
+            steps {
+                git credentialsId: 'github-pat', url: 'https://github.com/keerthana2003bggowda/spring-demo.git'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+
+        stage('Docker Image') {
+            steps {
+                sh 'docker build -t keerthana2003bggowd/spring-demo .'
+                sh 'docker push keerthana2003bggowd/spring-demo'
+            }
+        }
+
+        stage('K8s Deployment') {
+            steps {
+                sh 'kubectl apply -f k8s-deploy.yml'
+            }
+        }
+    }
+}
