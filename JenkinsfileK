@@ -1,7 +1,11 @@
 pipeline {
     agent  {label 'java' }
 
-    
+    environment {
+        IMAGE = 'docker.io/keerthana2003bggowd/spring-demo'
+        TAG = "${BUILD_NUMBER}"
+        CONTAINER = 'spring-demo'
+    }
 
     stages {
         stage('Clone Repo') {
@@ -14,14 +18,22 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package'
+                sh 'docker build -t "$IMAGE:$TAG" -t "$IMAGE:latest" .'
             }
         }
 
-        stage('Docker Image') {
+        stage('Push') {
             steps {
-                sh 'docker build -t keerthana2003bggowd/spring-demo .'
-                sh 'docker push keerthana2003bggowd/spring-demo'
+                withCredentials([
+                    usernamePassword(credentialsId: 'dockerhub-creds',
+                     passwordVariable: 'DOCKERHUB_PWD',
+                      usernameVariable: 'DOCKERHUB_USER'
+                      )
+                      ]) {
+                    sh 'echo "$DOCKERHUB_PWD" | docker login -u "$DOCKERHUB_USER" --password-stdin'
+                    sh 'docker push "$IMAGE:$TAG"'
+                    sh 'docker push "$IMAGE:latest"'
+                }
             }
         }
 
